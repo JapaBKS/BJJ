@@ -40,3 +40,10 @@ $router->get('/ranking/{competicao_id}',     'RankingController@show');
 // Relatórios (RF16)
 $router->get('/relatorios/inscricoes/{competicao_id}', 'RelatorioController@inscricoes');
 $router->get('/relatorios/resultados/{competicao_id}', 'RelatorioController@resultados');
+
+// Perfil do atleta (RF17)
+$router->get('/atletas/{id}', 'AtletaController@show');
+
+// Edição manual do chaveamento (RF18)
+$router->get('/chaveamentos/luta/{luta_id}/edit', 'ChaveamentoController@editLuta');
+$router->post('/chaveamentos/luta/{luta_id}/edit', 'ChaveamentoController@updateLuta');

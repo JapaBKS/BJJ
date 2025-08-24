@@ -20,7 +20,11 @@
                     <td><?= ($l['atleta_a_nome'] ?? ('#' . ($l['atleta_a_id'] ?? '-'))) ?></td>
                     <td><?= ($l['atleta_b_nome'] ?? ('#' . ($l['atleta_b_id'] ?? '-'))) ?></td>
                     <td><?= ($l['vencedor_nome'] ?? '-') ?></td>
-                    <td><a href="<?= $baseUrl ?>/mesa/<?= (int)$l['id'] ?>">Abrir mesa</a></td>
+                    <td>
+                        <a href="<?= $baseUrl ?>/mesa/<?= (int)$l['id'] ?>">Abrir mesa</a>
+                        &nbsp;|&nbsp;
+                        <a href="<?= $baseUrl ?>/chaveamentos/luta/<?= (int)$l['id'] ?>/edit">Editar</a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </table>

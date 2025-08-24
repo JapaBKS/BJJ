@@ -56,7 +56,7 @@ class MesaController extends Controller
     public function finalizar($luta_id): void
     {
         $vencedorId = (int)($_POST['vencedor_id'] ?? 0);
-        PartidaService::finalizar((int)$luta_id, $vencedorId);
-        $this->json(['ok' => true, 'msg' => 'Luta finalizada']);
+        $res = \App\Services\PartidaService::finalizar((int)$luta_id, $vencedorId);
+        $this->json($res);
     }
 }

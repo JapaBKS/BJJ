@@ -25,4 +25,25 @@ class AtletaController extends Controller
         $id = AtletaRepository::create($data);
         $this->redirect('/BJJ/public/inscricoes/nova?atleta_id=' . $id);
     }
+
+    public function show($id): void
+    {
+        $atleta = \App\Repositories\AtletaRepository::find((int)$id);
+        if (!$atleta) {
+            http_response_code(404);
+            echo "Atleta não encontrado.";
+            return;
+        }
+        $medalhas = \App\Repositories\AtletaRepository::medalhasTotais((int)$id);
+        $resultados = \App\Repositories\AtletaRepository::historicoResultados((int)$id);
+        $lutas = \App\Repositories\AtletaRepository::historicoLutas((int)$id);
+
+        $this->view('atleta/show', [
+            'titulo' => 'Perfil do Atleta',
+            'atleta' => $atleta,
+            'medalhas' => $medalhas,
+            'resultados' => $resultados,
+            'lutas' => $lutas
+        ]);
+    }
 }

@@ -85,4 +85,42 @@ final class LutaRepository
         $st->execute([$categoriaId]);
         return $st->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function updateParticipants(int $lutaId, ?int $aId, ?int $bId): void
+    {
+        $st = Db::pdo()->prepare("UPDATE lutas SET atleta_a_id=?, atleta_b_id=? WHERE id=?");
+        $st->execute([$aId, $bId, $lutaId]);
+    }
+
+    public static function updateNext(int $lutaId, ?int $proximaId): void
+    {
+        $st = Db::pdo()->prepare("UPDATE lutas SET proxima_luta_id=? WHERE id=?");
+        $st->execute([$proximaId, $lutaId]);
+    }
+
+    public static function clearWinnerCascade(int $lutaId): void
+    {
+        // zera vencedor; se ele já estava em 'proxima_luta', remove-o também
+        $luta = self::find($lutaId);
+        if (!$luta) return;
+
+        // limpa vencedor da luta
+        $st = Db::pdo()->prepare("UPDATE lutas SET vencedor_id=NULL, status='nao_iniciada' WHERE id=?");
+        $st->execute([$lutaId]);
+
+        // se havia proxima_luta_id, remove o atleta vencedor (se já estava preenchido)
+        if (!empty($luta['proxima_luta_id']) && !empty($luta['vencedor_id'])) {
+            $prox = self::find((int)$luta['proxima_luta_id']);
+            if ($prox) {
+                if ((int)$prox['atleta_a_id'] === (int)$luta['vencedor_id']) {
+                    $pdo = Db::pdo()->prepare("UPDATE lutas SET atleta_a_id=NULL WHERE id=?");
+                    $pdo->execute([(int)$prox['id']]);
+                }
+                if ((int)$prox['atleta_b_id'] === (int)$luta['vencedor_id']) {
+                    $pdo = Db::pdo()->prepare("UPDATE lutas SET atleta_b_id=NULL WHERE id=?");
+                    $pdo->execute([(int)$prox['id']]);
+                }
+            }
+        }
+    }
 }

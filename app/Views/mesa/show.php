@@ -187,15 +187,17 @@ $lutaId = (int)$luta['id']; ?>
             body: new URLSearchParams({
                 vencedor_id: vencedor
             })
-        }).then(r => r.json()).then(_ => {
-            alert('Luta finalizada!');
-            // se esta é a final, abre o pódio da categoria
-            const fase = "<?= ($luta['fase'] ?? '') ?>";
-            const categoriaId = <?= (int)$luta['categoria_id'] ?>;
-            if (fase === 'final') {
-                // pódio foi gerado automaticamente no backend
-                window.location.href = `${base}/podio/${categoriaId}`;
+        }).then(res => {
+            if (res.ok) {
+                if (res.podio_gerado) {
+                    alert('Luta finalizada! Pódio gerado automaticamente 🎉');
+                } else {
+                    alert(res.msg || 'Luta finalizada!');
+                }
+            } else {
+                alert(res.msg || 'Erro ao finalizar.');
             }
         });
+
     };
 </script>
