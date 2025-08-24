@@ -87,3 +87,57 @@ CREATE TABLE
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         CONSTRAINT fk_luta_categoria FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON DELETE CASCADE
     );
+
+ALTER TABLE lutas
+ADD COLUMN status ENUM ('nao_iniciada', 'em_andamento', 'finalizada') NOT NULL DEFAULT 'nao_iniciada',
+ADD COLUMN tempo_seg INT NOT NULL DEFAULT 300;
+
+CREATE TABLE
+    IF NOT EXISTS luta_eventos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        luta_id INT NOT NULL,
+        atleta_id INT NOT NULL,
+        tipo ENUM ('ponto', 'vantagem', 'punicao') NOT NULL,
+        subtipo ENUM (
+            'queda',
+            'raspagem',
+            'passagem',
+            'montada',
+            'costas',
+            'joelho',
+            'grave',
+            'gravissima',
+            'falta_de_combatividade'
+        ) NULL,
+        valor INT NOT NULL DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT fk_evento_luta FOREIGN KEY (luta_id) REFERENCES lutas (id) ON DELETE CASCADE
+    );
+
+-- Resultados por categoria (pódio)
+CREATE TABLE
+    IF NOT EXISTS podios (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        categoria_id INT NOT NULL UNIQUE,
+        ouro_atleta_id INT,
+        prata_atleta_id INT,
+        bronze1_atleta_id INT,
+        bronze2_atleta_id INT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP NULL,
+        CONSTRAINT fk_podio_categoria FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON DELETE CASCADE
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
+-- Resultados "atleta x medalha", para ranking
+CREATE TABLE
+    IF NOT EXISTS resultados (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        competicao_id INT NOT NULL,
+        categoria_id INT NOT NULL,
+        atleta_id INT NOT NULL,
+        colocacao ENUM ('ouro', 'prata', 'bronze') NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT fk_res_comp FOREIGN KEY (competicao_id) REFERENCES competicoes (id) ON DELETE CASCADE,
+        CONSTRAINT fk_res_cat FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON DELETE CASCADE,
+        CONSTRAINT fk_res_atl FOREIGN KEY (atleta_id) REFERENCES atletas (id) ON DELETE CASCADE
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;

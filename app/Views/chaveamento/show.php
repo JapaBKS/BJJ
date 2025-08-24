@@ -1,31 +1,28 @@
 <?php $baseUrl = $GLOBALS['__baseUrl'] ?? ''; ?>
 <section class="container">
-    <h1>Chaveamento</h1>
-    <table border="1" cellpadding="6">
-        <tr>
-            <th>#</th>
-            <th>Fase</th>
-            <th>Atleta A</th>
-            <th>Atleta B</th>
-            <th>Vencedor</th>
-        </tr>
-        <?php foreach ($lutas as $l): ?>
+    <h1>Chaveamento da categoria #<?= isset($lutas[0]) ? (int)$lutas[0]['categoria_id'] : '' ?></h1>
+    <?php if (!$lutas): ?>
+        <p>Nenhuma luta encontrada.</p>
+    <?php else: ?>
+        <table border="1" cellpadding="6">
             <tr>
-                <td><?= ($l['ordem']) ?></td>
-                <td><?= ($l['fase']) ?></td>
-                <td><?= $l['atleta_a_id'] ?></td>
-                <td><?= $l['atleta_b_id'] ?></td>
-                <td><?= $l['vencedor_id'] ?? '-' ?></td>
+                <th>#</th>
+                <th>Fase</th>
+                <th>Atleta A</th>
+                <th>Atleta B</th>
+                <th>Vencedor</th>
+                <th>Ações</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
+            <?php foreach ($lutas as $l): ?>
+                <tr>
+                    <td><?= (int)$l['ordem'] ?></td>
+                    <td><?= ($l['fase']) ?></td>
+                    <td><?= ($l['atleta_a_nome'] ?? ('#' . ($l['atleta_a_id'] ?? '-'))) ?></td>
+                    <td><?= ($l['atleta_b_nome'] ?? ('#' . ($l['atleta_b_id'] ?? '-'))) ?></td>
+                    <td><?= ($l['vencedor_nome'] ?? '-') ?></td>
+                    <td><a href="<?= $baseUrl ?>/mesa/<?= (int)$l['id'] ?>">Abrir mesa</a></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
 </section>
-<script>
-    // Atualiza em tempo real (RF9)
-    setInterval(() => {
-        fetch("<?= $baseUrl ?>/api/chaveamentos/<?= (int)$_GET['categoria_id'] ?? '' ?>")
-            .then(r => r.json()).then(j => {
-                console.log("Atualizado", j);
-            });
-    }, 3000);
-</script>

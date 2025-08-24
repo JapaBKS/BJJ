@@ -62,17 +62,22 @@ final class ChaveamentoService
             'categoria_id' => $categoriaId,
             'fase' => 'chave3',
             'ordem' => 2,
-            'atleta_a_id' => null, // será o perdedor
+            'atleta_a_id' => null, // perdedor de L1
             'atleta_b_id' => $c['atleta_id']
         ]);
 
         // Final: Vencedor L1 x Vencedor L2
-        LutaRepository::create([
+        $final = LutaRepository::create([
             'categoria_id' => $categoriaId,
             'fase' => 'final',
             'ordem' => 3,
             'atleta_a_id' => null,
             'atleta_b_id' => null
         ]);
+
+        // vincula próximas lutas
+        $pdo = \App\Repositories\Db::pdo();
+        $st = $pdo->prepare("UPDATE lutas SET proxima_luta_id=? WHERE id IN (?,?)");
+        $st->execute([$final, $l1, $l2]);
     }
 }
