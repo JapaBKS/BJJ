@@ -1,0 +1,103 @@
+/* ====== Tela: Painel de Lutas ====== */
+.page {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.panel-header {
+    text-align: center;
+    padding: 24px 16px;
+}
+
+.panel-header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.panel-header .subtitle {
+    opacity: .75;
+    margin-top: 6px;
+}
+
+.panel-main {
+    display: grid;
+    gap: 32px;
+    padding: 24px 16px 40px;
+    justify-items: center;
+}
+
+.fight-now h2,
+.fight-next h2 {
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.fight-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(800px, 100%);
+    border: 2px solid rgba(255, 255, 255, .1);
+    border-radius: 16px;
+    padding: 20px;
+    background: rgba(0, 0, 0, .2);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .25);
+}
+
+.fighter {
+    flex: 1;
+    text-align: center;
+}
+
+.fighter h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.fighter p {
+    margin: 4px 0 0;
+    opacity: .85;
+}
+
+.vs {
+    font-weight: bold;
+    margin: 0 18px;
+    font-size: 1.4rem;
+    color: var(--accent, #2dd4bf);
+}
+
+.red h3,
+.red {
+    color: #f87171;
+}
+
+.blue h3,
+.blue {
+    color: #60a5fa;
+}
+
+.fight-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: min(700px, 100%);
+}
+
+.fight-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+.fight-list li:last-child {
+    border-bottom: 0;
+}
+
+.panel-footer {
+    padding: 16px;
+    text-align: center;
+    opacity: .7;
+    font-size: .9rem;
+}
