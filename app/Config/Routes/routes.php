@@ -12,3 +12,4 @@ $r->get('/inscricao',   fn() => require __DIR__ . '/../../../public/views/Inscri
 $r->get('/chaveamento', fn() => require __DIR__ . '/../../../public/views/Chaveamento/chaveamento.php');
 $r->get('/mesario',     fn() => require __DIR__ . '/../../../public/views/Mesario/mesario.php');
 $r->get('/relatorios',  fn() => require __DIR__ . '/../../../public/views/Relatorios/relatorios.php');
+$r->get('/categorias', fn() => require __DIR__.'/../../../public/views/Competicoes/categorias.php');
