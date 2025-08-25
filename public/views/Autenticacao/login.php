@@ -1,0 +1,1 @@
+<!doctype html><html lang='pt-br'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Login - ShiaiFlow</title><link rel='stylesheet' href='/public/css/style.css'></head><body><main class='container'><h1>Login</h1><p>Placeholder da view Login.</p></main><script src='/public/js/main.js'></script></body></html>
