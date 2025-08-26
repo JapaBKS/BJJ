@@ -1,0 +1,279 @@
+/* ====== Visualização de Chaveamento ====== */
+.page {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto
+}
+
+/* header */
+.page-header {
+    display: flex;
+    gap: 16px;
+    align-items: end;
+    justify-content: space-between;
+    padding: 24px clamp(12px, 3vw, 24px) 12px;
+}
+
+.title-wrap h1 {
+    margin: 0
+}
+
+.subtitle {
+    opacity: .75;
+    margin: .35rem 0 0
+}
+
+.actions .btn {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 700
+}
+
+.btn {
+    border: 1px solid rgba(255, 255, 255, .15);
+    background: rgba(255, 255, 255, .06);
+    color: var(--ink, #e6eef8);
+    cursor: pointer
+}
+
+.btn:hover {
+    filter: brightness(1.06)
+}
+
+.btn.ghost {
+    background: transparent
+}
+
+/* main */
+.page-main {
+    display: grid;
+    gap: 16px;
+    padding: 8px clamp(12px, 3vw, 24px) 28px
+}
+
+/* legenda */
+.legend {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    opacity: .95
+}
+
+.tag {
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    font-weight: 700;
+    font-size: .8rem;
+    background: rgba(255, 255, 255, .06)
+}
+
+.tag.seed {
+    background: #3b82f6;
+    border-color: transparent;
+    color: #041326
+}
+
+.tag.win {
+    background: #22c55e;
+    border-color: transparent;
+    color: #04140c
+}
+
+.tag.walkover {
+    background: #06b6d4;
+    border-color: transparent;
+    color: #052229
+}
+
+.tag.dq {
+    background: #ef4444;
+    border-color: transparent;
+    color: #2b0505
+}
+
+/* bracket */
+.bracket {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: start;
+}
+
+.round h2 {
+    margin: 0 0 10px;
+    text-align: center;
+    opacity: .9
+}
+
+.match {
+    --line: rgba(255, 255, 255, .25);
+    position: relative;
+    display: grid;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .04);
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 24px;
+}
+
+/* Conectores laterais (para rounds 1 e 2) */
+.round:not(.final) .match::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -24px;
+    width: 24px;
+    height: 2px;
+    background: var(--line);
+}
+
+.round+.round .match:nth-child(odd)::before {
+    /* conector vertical que vem de cima para a match de destino */
+    content: "";
+    position: absolute;
+    left: -24px;
+    top: -50%;
+    width: 2px;
+    height: calc(100% + 24px);
+    background: var(--line);
+}
+
+.round+.round .match:nth-child(even)::before {
+    content: "";
+    position: absolute;
+    left: -24px;
+    top: calc(50% + 12px);
+    width: 2px;
+    height: calc(50% + 12px);
+    background: var(--line);
+}
+
+/* slots */
+.slot {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 10px;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, .18);
+}
+
+.slot .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.slot .name em {
+    opacity: .7;
+    font-style: normal
+}
+
+.slot .score {
+    font-weight: 800
+}
+
+/* estados */
+.red .name {
+    color: #f87171
+}
+
+.blue .name {
+    color: #60a5fa
+}
+
+.walkover .name {
+    opacity: .6
+}
+
+.dq .name {
+    opacity: .9
+}
+
+.slot .score.win,
+.adv {
+    color: #22c55e;
+    font-weight: 800
+}
+
+.adv {
+    margin-top: 2px;
+    font-size: .9rem;
+    opacity: .95
+}
+
+/* seeds */
+.seed {
+    display: inline-grid;
+    place-items: center;
+    width: 26px;
+    height: 18px;
+    border-radius: 999px;
+    margin-right: 6px;
+    background: #3b82f6;
+    color: #041326;
+    font-weight: 800;
+    font-size: .75rem
+}
+
+/* final + pódio */
+.final .match {
+    margin-bottom: 12px
+}
+
+.podium {
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 12px;
+    padding: 10px;
+    background: rgba(255, 255, 255, .04);
+    display: grid;
+    gap: 6px
+}
+
+.pod {
+    padding: 6px 8px;
+    border-radius: 10px
+}
+
+.pod.gold {
+    background: #22c55e;
+    color: #04140c
+}
+
+.pod.silver {
+    background: #e5e7eb;
+    color: #1f2937
+}
+
+.pod.bronze {
+    background: #f59e0b;
+    color: #271600
+}
+
+/* nota chave de 3 */
+.note-3 {
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, .04)
+}
+
+.note-3 h3 {
+    margin: 0 0 6px
+}
+
+/* responsivo */
+@media (max-width: 1080px) {
+    .bracket {
+        grid-template-columns: 1fr
+    }
+
+    .round:not(.final) .match::after,
+    .round+.round .match::before {
+        display: none
+    }
+}

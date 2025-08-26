@@ -1,0 +1,268 @@
+/* ====== Histórico de Lutas do Atleta ====== */
+.page {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto
+}
+
+/* header */
+.page-header {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px clamp(12px, 3vw, 24px) 12px;
+}
+
+.identity {
+    display: flex;
+    align-items: center;
+    gap: 14px
+}
+
+.avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #60a5fa33, #2dd4bf22);
+    border: 1px solid rgba(255, 255, 255, .15);
+    font-weight: 800
+}
+
+.who h1 {
+    margin: 0
+}
+
+.meta {
+    margin: .35rem 0 0;
+    opacity: .9
+}
+
+.chip {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .15);
+    background: rgba(255, 255, 255, .06);
+    font-weight: 700
+}
+
+.chip.belt {
+    background: #3b82f6;
+    color: #041326;
+    border-color: transparent
+}
+
+.sep {
+    opacity: .5;
+    margin: 0 6px
+}
+
+.muted {
+    opacity: .8
+}
+
+.actions .btn {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 700
+}
+
+.btn {
+    border: 1px solid rgba(255, 255, 255, .15);
+    background: rgba(255, 255, 255, .06);
+    color: var(--ink, #e6eef8);
+    cursor: pointer
+}
+
+.btn:hover {
+    filter: brightness(1.06)
+}
+
+.btn.ghost {
+    background: transparent
+}
+
+/* main */
+.page-main {
+    padding: 8px clamp(12px, 3vw, 24px) 28px;
+    display: grid;
+    gap: 16px
+}
+
+/* filtros */
+.filters {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(5, 1fr) 2fr auto;
+    align-items: end;
+    background: rgba(255, 255, 255, .03);
+    border: 1px solid rgba(255, 255, 255, .08);
+    padding: 14px;
+    border-radius: 14px;
+}
+
+.field {
+    display: grid;
+    gap: 6px
+}
+
+.apply .btn {
+    min-width: 110px
+}
+
+input[type="search"],
+input[type="date"],
+select {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, .15);
+    background: rgba(0, 0, 0, .25);
+    color: var(--ink, #e6eef8);
+    min-height: 40px
+}
+
+/* KPIs */
+.kpis {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(4, 1fr)
+}
+
+.kpi {
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .05);
+    padding: 14px 16px;
+    text-align: center
+}
+
+.kpi .num {
+    font-weight: 800;
+    font-size: clamp(20px, 5vw, 28px)
+}
+
+.kpi .label {
+    opacity: .85;
+    margin-top: 4px
+}
+
+.kpi .num.win {
+    color: #22c55e
+}
+
+.kpi .num.loss {
+    color: #ef4444
+}
+
+.kpi .num.sub {
+    color: #38bdf8
+}
+
+/* lista */
+.card {
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 16px;
+    background: rgba(0, 0, 0, .18);
+    overflow: hidden;
+    display: grid;
+    gap: 10px
+}
+
+.table-wrap {
+    overflow: auto
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    text-align: left
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background: rgba(0, 0, 0, .35);
+    backdrop-filter: blur(4px);
+    z-index: 1
+}
+
+/* tags de resultado */
+.tag {
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: .8rem
+}
+
+.tag.win {
+    background: #22c55e;
+    color: #04140c
+}
+
+.tag.loss {
+    background: #ef4444;
+    color: #2b0505
+}
+
+.tag.sub {
+    background: #06b6d4;
+    color: #042027
+}
+
+/* paginação */
+.pagination {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    padding: 12px
+}
+
+.pagination .current {
+    outline: 2px solid var(--accent, #2dd4bf)
+}
+
+/* seção notas */
+.hint {
+    border: 1px solid rgba(255, 255, 255, .08);
+    background: rgba(255, 255, 255, .03);
+    border-radius: 14px;
+    padding: 14px 16px;
+}
+
+.hint h3 {
+    margin: 0 0 8px
+}
+
+.hint ul {
+    margin: 0;
+    padding-left: 18px;
+    opacity: .9
+}
+
+/* footer */
+.page-footer {
+    padding: 16px;
+    text-align: center;
+    opacity: .7;
+    font-size: .9rem
+}
+
+/* responsivo */
+@media (max-width: 1100px) {
+    .filters {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px
+    }
+
+    .kpis {
+        grid-template-columns: 1fr 1fr
+    }
+}
