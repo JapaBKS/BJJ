@@ -35,7 +35,10 @@ class Router
     }
 
     if (is_callable($handler)) {
-      echo call_user_func($handler);
+      $result = call_user_func($handler);
+      if (is_string($result)) {
+        echo $result;
+      }
       return;
     }
     http_response_code(404);
